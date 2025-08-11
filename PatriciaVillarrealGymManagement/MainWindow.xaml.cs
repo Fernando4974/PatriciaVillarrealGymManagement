@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using PatriciaVillarrealGymManagement.Models.database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,26 @@ namespace PatriciaVillarrealGymManagement
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            connection db = new connection();
+            MySqlConnection conn = db.StartConnection();
+
+            
+            if (conn != null && conn.State == System.Data.ConnectionState.Open)
+            {
+                MessageBox.Show("Conexión a la base de datos exitosa");
+
+         
+                db.EndConnection();
+            }
+            else
+            {
+                MessageBox.Show("Error: La conexión a la base de datos falló");
+            }
         }
     }
 }
